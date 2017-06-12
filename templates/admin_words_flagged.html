@@ -1,0 +1,24 @@
+{% with page=mode|title + ' Words' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<form class="form-horizontal" action="/admin/words/{{ mode }}/add" method="post" enctype = "multipart/form-data">
+      <input id="word" name="word" placeholder="Word" class="form-control input-md" required="" type="text">
+      <button id="add" name="add" class="btn btn-primary">Add</button>
+</form>
+
+<table class="data_table">
+  <tr class="data_table">
+    <th class="data_table">Protected Word</th>
+    <th class="data_table">View Word</th>
+    <th class="data_table">Delete Word</th>
+  </tr>
+  {% for word in words %}
+  <tr class="data_table">
+    <td class="data_table">{{ word[0] }}</td>
+    <td class="data_table"><a {% if rank > 2-1 %} onClick="alert('{{ word[2] }}');" {% else %} onClick="alert('No Permission To View!');" {% endif %} href="">View</a></td>
+    <td class="data_table"><a href="/admin/words/{{ mode }}/delete/{{ word[1] }}">Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+

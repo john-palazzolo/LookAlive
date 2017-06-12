@@ -1,0 +1,1 @@
+{'special_event': 0, 'MOTD': 1, 'popular_follower_cap': 100, 'banned_message': 'Sorry. &, Because You Are Banned. LOSER!!!!! CHECK THE EULA YOU $#!+', 'MOTD_mode': 2, 'preset_id': '0', 'popular_like_results_cap': 10, 'view_all_comments': False}

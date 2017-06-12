@@ -1,0 +1,310 @@
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<html>
+    <head>
+        <title>{{ page }}</title>
+
+        <style>
+
+
+            #first {
+                height: 15%;
+                border-color: #000000;
+                background-color: #FFFFFF;
+                color: #000000;
+                position: relative;
+                top: -16px;
+            }
+
+            #selected {
+                height: 15%;
+                border-color: #000000;
+                background-color: #A9A9A9;
+                color: #000000;
+                position: relative;
+                top: -16px;
+            }
+
+            hr {
+                position: relative;
+                top: -16px;
+            }
+
+            .hyperspan {
+                position:absolute;
+                width:100%;
+                height:100%;
+                left:0;
+                top:0;
+            }
+
+            .message_box{
+                color: #FF4C4C;
+            }
+
+             /* The alert message box */
+            .alert {
+                position: relative;
+                z-index : 1;
+                padding: 20px;
+                 /* Red */
+                color: white;
+                margin-bottom: 15px;
+                width: 80%;
+            }
+
+            /* The close button */
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            /* When moving the mouse over the close button */
+            .closebtn:hover {
+                color: black;
+            }
+
+            .bad_style{
+                background-color: #f44336;
+            }
+
+            .warning_style{
+                background-color: ##ffff7f;
+            }
+
+        </style>
+        <script>
+        fixBrokenImages = function( url ){
+            var img = document.getElementById("website_logo");
+            var i=0, l=img.length;
+            for(;i<l;i++){
+                var t = img[i];
+                if(t.naturalWidth === 0){
+                    //this image is broken
+                    t.src = url;
+                }
+            }
+        }
+
+            window.onload = function() {
+                fixBrokenImages('/static/images/logo.png');
+            }
+        </script>
+    </head>
+
+    <body>
+        <center>
+                <div class="top">
+                    {% if logo and logo != "default" %}
+                        <img src="/static/images/logo_{{ logo }}.png" class="top" id="website_logo">
+                    {% else %}
+                        <img src="/static/images/logo.png" class="top" id="website_logo">
+                    {% endif %}
+                    <a style="cursor:default" class="head" href="https://img.ifcdn.com/images/04c9bf5f4bf69c6f700bfb5af9f99f17a1d27d3caef1a453eb77eeac06407582_1.jpg" target="_blank"><h1 class="top">{{ page }}</h1></a>
+
+        <div style="min-height:100% width:80%" id="message_box" name="message_box">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message is string %}
+                            <div class="alert alert-warning alert-dismissible" style="background-color: #99ff99; color: #000000;" role="alert">
+                        {% else %}
+                            <div class="alert alert-warning alert-dismissible" style="
+                            {% if message[1] == 0 %} background-color:   #f44336; color: #FFFFFF;        /* Bad     - 0 */
+                            {% elif message[1] == 1 %} background-color: #ffff7f; color: #000000;        /* Warning - 1 */
+                            {% elif message[1] == 2 %} background-color: #99ff99; color: #000000;        /* Good    - 2 */
+                            {% else %}                 background-color: #99ff99; color: #000000;        /* Default */
+                            {% endif %}
+                            " role="alert">
+                        {% endif %}
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="document.getElementById('message_box').remove();"><span aria-hidden="true">×</span></button>-->
+                                {% if message is string %} {{message}} {% else %} {{message[0]}} {% endif %}
+                            </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block body %}{% endblock %}
+        </div>
+
+    </div>
+
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+
+<script>
+
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+</script>
+
+
+
+                <div id="parent">
+
+                    <div id="narrow" style="height:100%; overflow:hidden;">
+                        <p></p>
+                        {% if id != -1 %}
+                            {% if id == 0 %}
+                                <div id="selected">
+                                    <td>
+                                        <div class="none">
+                                            <div class="none">
+                                                <img src="/static/images/home.png" style="width:50px; height:50px;">
+
+                                            </div>
+                                        </div>
+                                        <a href="/"><p>Home</p><span class="hyperspan"></span></a></td>
+                                </div>
+                            {% else %}
+                                <div id="first">
+                                    <td>
+                                        <div class="none">
+                                            <div class="none">
+                                                <img src="/static/images/home.png" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                        <a href="/"><p>Home</p><span class="hyperspan"></span></a>
+                                    </td>
+                                </div>
+                            {% endif %}
+
+
+
+                            {% if id == 1 %}
+                                <div id="selected">
+
+                                    <td>
+                                        <div class="none">
+
+                                            <div class="none">
+                                                <img src="/static/icons/{{ uuid }}{{ ext }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                        <a href="/profile/{{ uuid }}"><p>{{ name }}</p><span class="hyperspan"></span></a></td>
+                                </div>
+                            {% else %}
+                                <div id="first">
+                                    <td>
+                                        <div class="none">
+                                            <div class="none">
+
+                                                <img src="/static/icons/{{ uuid }}{{ ext }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                        <a href="/profile/{{ uuid }}"><p>{{ name }}</p><span class="hyperspan"></span></a></td>
+                                </div>
+                            {% endif %}
+
+
+
+                            {% if id == 2 %}
+
+                                <div id="selected">
+                                                                            <div class="none">
+                                            <div class="none">
+                                                <img src="/static/images/search.png" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                    <a href="/search"><p>Search</p><span class="hyperspan"></span></a>
+                                </div>
+
+                            {% else %}
+
+                                <div id="first">
+                                                                            <div class="none">
+                                            <div class="none">
+                                                <img src="/static/images/search.png" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                    <a href="/search"><p>Search</p><span class="hyperspan"></span></a>
+                                </div>
+
+                            {% endif %}
+
+                            {% if id == 3 %}
+
+                                <div id="selected">
+                                                                            <div class="none">
+                                            <div class="none">
+                                                <img src="/static/images/no_icon.png" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                    <a href="/notifications/{{ uuid }}"><p>Notifications ({{ notify }})</p><span class="hyperspan"></span></a>
+                                </div>
+
+                            {% else %}
+
+                                <div id="first">
+                                                                            <div class="none">
+                                            <div class="none">
+                                                <img src="/static/images/no_icon.png" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                    <a href="/notifications/{{ uuid }}"><p>Notifications ({{ notify }})</p><span class="hyperspan"></span></a>
+                                </div>
+
+                            {% endif %}
+
+                            {% if id == 4%}
+                                <div id="selected">
+
+                                    <td>
+                                        <div class="none">
+                                            <div class="none">
+                                                <img src="/static/icons/no_icon.png" onError="this.onerror=null;this.src='/static/images/no_icon.png';" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                        <a href="/message"><p>Private Messenger ({{ unseen }})</p><span class="hyperspan"></span></a></td>
+                                </div>
+                            {% else %}
+                                <div id="first">
+                                    <td>
+                                        <div class="none">
+                                            <div class="none">
+                                                <img src="/static/icons/no_icon.png" onError="this.onerror=null;this.src='/static/images/no_icon.png';" style="width:50px; height:50px;">
+                                            </div>
+                                        </div>
+                                        <a href="/message"><p>Private Messenger ({{ unseen }})</p><span class="hyperspan"></span></a></td>
+                                </div>
+                            {% endif %}
+
+
+                            <div id="first">
+                                <td>
+                                    <img src="/static/images/logout.png" style="width:50px; height:50px;">
+                                    <a href="/logout"><p>Log Out</p><span class="hyperspan"></span></a></td>
+                            </div>
+                        {% else %}
+
+                            <p></p>
+
+                        {% endif %}
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </center>
+
+    </body>
+
+</html>

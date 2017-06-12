@@ -1,0 +1,20 @@
+{% with page='Flagged Words' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<table class="data_table">
+  <tr class="data_table">
+    <th class="data_table">Message</th>
+    <th class="data_table">Sender</th>
+    <th class="data_table">Delete</th>
+    <th class="data_table">Ignore</th>
+  </tr>
+  {% for word in flagged_words %}
+  <tr class="data_table">
+    <td class="data_table">{{ word[1] }}</td>
+    <td class="data_table">{{ word[2] }}</td>
+    <td class="data_table"><a href="/admin/words/message/delete/{{ word[4] }}">Delete</a></td>
+    <td class="data_table"><a href="/admin/words/message/ignore/{{ word[4] }}">Ignore</a></td>
+  </tr>
+  {% endfor %}
+</table>

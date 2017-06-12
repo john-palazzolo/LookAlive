@@ -1,0 +1,73 @@
+textarea {
+	border:1px solid #000000;
+    border-left: 4px solid #000000;
+    resize: none;
+}
+
+input[type=text] {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 4px;
+    border: 2px solid #000000;
+}
+
+input[type=password] {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 4px;
+    border: 2px solid #000000;
+}
+
+input[type=file] {
+	position: relative;
+	text-align: right;
+	-moz-opacity:100 ;
+	filter:alpha(opacity: 100);
+	opacity: 100;
+	z-index: 2;
+}
+
+/* All of this junk for stupid good looking buttons! */
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #000000;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 5px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  /*margin: 5px;*/
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+input.large {
+    width: 100%;
+}

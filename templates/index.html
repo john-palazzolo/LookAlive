@@ -1,0 +1,273 @@
+{% with page='Home', name=name, uuid=uuid, id=0, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+
+<script>
+
+// global variables
+var default_text = "Write Something Here";
+//   $(document).ready( function() {
+//         $('#next').click(function() {
+//           $.ajax("{{ url_for('index') }}").done(function (reply) {
+//               $('#container').html(reply);
+//               alert (reply)
+//               {% set taco = 'reply' %}  - Change 'taco' to 'posts'
+
+//           });
+//         });
+//   });
+
+  function ajax(url, callbackFunction, x) {
+    var request =  new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.setRequestHeader("Content-Type",
+      "application/x-www-form-urlencoded");
+
+    request.onreadystatechange = function() {
+      var done = 4, ok = 200;
+      if (request.readyState == done && request.status == ok) {
+        if (request.responseText) {
+          callbackFunction(request.responseText, x);
+        }
+      }
+    };
+    request.send();
+  }
+
+  var buttonClicked = function (x) {
+    ajax('http://lookalive.pythonanywhere.com/get_post_data', getComplete, x);
+  }
+
+  var getComplete = function (text, x) {
+        var new_data = text.split(',');
+        new_data = new_data.toString();
+        var old_data = window.old_data;
+
+        alert (new_data)
+        alert (old_data)
+
+        if (new_data == old_data)
+        {
+            alert('True')
+            // nothing
+        }
+        else
+        {
+            alert('False')
+            window.old_data = new_data
+            location.reload();
+        }
+
+      }
+
+
+window.onload = function() {
+    fixBrokenImages('/static/images/video.png');
+
+    var message = document.getElementById("message")
+
+    message.addEventListener("focus", unsetText);
+    message.addEventListener("blur", setText);
+    setText()
+
+ }
+
+window.setInterval(function(){
+    // buttonClicked('{{ post }}');
+    // document.getElementById('messages').reload(true);
+}, 1000);
+
+
+
+fixBrokenImages = function( url ){
+    var img = document.getElementsByTagName('img');
+    var i=0, l=img.length;
+    for(;i<l;i++){
+        var t = img[i];
+        if(t.naturalWidth === 0){
+            //this image is broken
+            t.src = url;
+        }
+    }
+}
+
+// This Section is for managing the Text Area Mesage
+
+
+function unsetText(){
+        if (document.getElementById("message").value == default_text){
+        document.getElementById("message").value = "";
+    }
+}
+
+function setText(){
+
+    if (document.getElementById("message").value == ""){
+        document.getElementById("message").value = default_text;
+    }
+}
+
+function readText(text)
+{
+    // http://stackoverflow.com/questions/15653145/using-google-text-to-speech-in-javascript
+    var msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
+
+}
+
+</script>
+
+<style>
+
+    #outter {
+    width: 100%;
+    display: flex;
+    }
+    #small {
+    width: 160px;
+    }
+    #large {
+    width: calc(100% - 200px);
+    }
+        .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+
+</style>
+
+<center>
+<div id="wide">
+    <div class="other" style="height: 75%; overflow-y: scroll;">
+
+        <br>
+        <a href="/"><button type="button" class="button large">Refresh <span class=reload>&#x21bb;</span></button></a><br>&nbsp<br>
+        View The <a href="/popular">Most Liked</a> Posts
+        <h2>Activity Feed</h2>
+
+        <hr style="width: 95%;">
+
+        <!-- <input type="button" id="next" value="Next" /> -->
+        <!-- <div id="container"></div> -->
+
+        <div>
+        <table>
+
+            {% for post in posts %}
+
+                <tr>
+
+                    {% if post[8] == True %}
+
+                    <th class="head" style="background-color: #FF0000;">
+                        <sub>Flagged Word Detected In This Post</sub>
+                    {% else %}
+                    <th class="head">
+                    {% endif %}
+
+
+                    <a class="head" href="/profile/{{ post[2] }}">
+
+                    <center>
+                        {% if post[2] in user_follower %}
+                            {% include "popular_image.html" %}
+                        {% endif %}
+                        <div class="image-cropper">
+                                <center>
+                                    <img style="display: block; margin: auto;" src="/static/icons/{{ post[2] }}{{ post[8] }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';">
+                                </center>
+                        </div>
+
+                        <br>
+                    </center>
+                    {% with rank = post[10] %}
+                    {% include "get_prefix.html" %}
+                    {% endwith %}
+                        {{ post[0] }}
+                        </a>
+
+                        {% if post[5] == 0 %}
+                        {# In the Jinja template #}
+                        <td>{{ post[1]|safe }} <br> <img src="/static/images/read.png" style="width:25px;"onClick='readText("{{ post[1] }}")'/>
+                        <a href="/repost/{{ post[4] }}">Repost</a>
+                                {% if post[0] != name %}
+                                    <br><p align="right"><a href="/post/like/{{ post[4] }}"><img style="height:20px;" src="/static/images/like.png"/></a> : {{ post[6] }}</p>
+                                {% else %}
+                                    <p style="color: #000000;" align="right"><img style="height:20px;" src="/static/images/like.png"/> : {{ post[6] }}</p>
+
+                                {% endif %}
+
+                        {% endif %}
+
+                        </td>
+                        </th>
+
+
+                    {% if post[5] != 0 %}
+                        <td>
+                            <a class="name" href="/static/files/{{ post[4] }}{{ post[5] }}" target="_blank">
+
+                                <img id="content" style="height: 150px;" src="/static/files/{{ post[4] }}{{ post[5] }}" align="left" />
+                            </a>
+                                <p style="color: #000000;">&nbsp{{ post[1]|safe }} <br> <img src="/static/images/read.png" style="width:25px;"onClick='readText("{{ post[1] }}")'/></p>
+                                <a href="/repost/{{ post[4] }}">Repost</a>
+                                {% if post[0] != name %}
+                                    <br><p align="right"><a align="right" href="/post/like/{{ post[4] }}"><img style="height:20px;" src="/static/images/like.png"/></a> :  {{ post[6] }}</p>
+                                {% else %}
+                                    <br><p style="color: #000000;" style="style=display:inline-block"><img style="height:20px;" src="/static/images/like.png"/> : {{ post[6] }}</p>
+                                {% endif %}
+
+
+                        </td>
+                    {% endif %}
+
+                    {% if post[0] == name %}
+
+                        <th class="head"><a class="head" href="/post/delete/{{ post[2] }}/{{ post[4] }}/0">Delete</a></td>
+
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+        </table>
+        </div>
+
+    </div>
+
+        <br>
+
+        <form action="/post" method="post" enctype = "multipart/form-data">
+
+            <div id="outter">
+                <div id="large">
+                    <div style="overflow: hidden; padding-right: .5em;">
+                        <input type="text" name="message" id="message" style="width: 100%;">
+                        <!--<textarea name="message" id="message" type="text" style="width: 100%;" rows="4">Write Something Here</textarea>-->
+                    </div>
+                </div>
+
+                <div id="small">
+                    <span style="display: inline-block; vertical-align: top;">
+                        <label for="fileSelect" class="button" data-role="button" data-inline="true" data-mini="true" data-corners="false">Photos and Videos</label>
+                            <input id="fileSelect" type="file" name="fileSelect" multiple data-role="button" data-inline="true" data-mini="true" data-corners="false" style="opacity: 0; height: 0px;" accept=".gif, .jpg, .jpeg, .png, .mp4, .webm, .ogg"/>
+                        </label>
+                        <button class="button" style="width:160px;"><span>Post!</span></button></div>
+                    </span>
+
+
+                </div>
+
+        </form>
+
+</center>
+
+{% include 'footer.html' %}

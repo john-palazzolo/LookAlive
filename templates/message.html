@@ -1,0 +1,262 @@
+{% with page='Message', name=name, uuid=uuid, id=4, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<style>
+    .alignleft {
+    	float: left;
+    	/*padding-left: 80px;*/
+    }
+    .alignright {
+    	float: right;
+    	/*padding-right: 80px;*/
+
+    }
+
+    .alignmiddle {
+        float: right;
+    }
+
+    div.large_button { position: relative; }
+
+    .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+
+    #outter {
+    width: 100%;
+    display: flex;
+    }
+    #small {
+    width: 160px;
+    }
+    #large {
+    width: calc(100% - 200px);
+    }
+        .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+
+</style>
+
+<script>
+// global variables
+var default_text = "Write Something Here";
+//   $(document).ready( function() {
+//         $('#next').click(function() {
+//           $.ajax("{{ url_for('index') }}").done(function (reply) {
+//               $('#container').html(reply);
+//               alert (reply)
+//               {% set taco = 'reply' %}  - Change 'taco' to 'posts'
+
+//           });
+//         });
+//   });
+
+  function ajax(url, callbackFunction, x) {
+    var request =  new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.setRequestHeader("Content-Type",
+      "application/x-www-form-urlencoded");
+
+    request.onreadystatechange = function() {
+      var done = 4, ok = 200;
+      if (request.readyState == done && request.status == ok) {
+        if (request.responseText) {
+          callbackFunction(request.responseText, x);
+        }
+      }
+    };
+    request.send();
+  }
+
+  var buttonClicked = function (x) {
+    ajax('http://lookalive.pythonanywhere.com/get_post_data', getComplete, x);
+  }
+
+  var getComplete = function (text, x) {
+        var new_data = text.split(',');
+        new_data = new_data.toString();
+        var old_data = window.old_data;
+
+        alert (new_data)
+        alert (old_data)
+
+        if (new_data == old_data)
+        {
+            alert('True')
+            // nothing
+        }
+        else
+        {
+            alert('False')
+            window.old_data = new_data
+            location.reload();
+        }
+
+      }
+
+window.onload = function() {
+    fixBrokenImages('/static/images/video.png');
+
+    var message = document.getElementById("message")
+
+    message.addEventListener("focus", unsetText);
+    message.addEventListener("blur", setText);
+    setText()
+    // window.old_data = "{{ posts }}";
+ }
+
+window.setInterval(function(){
+    // buttonClicked('{{ post }}');
+    // document.getElementById('messages').reload(true);
+}, 1000);
+
+
+
+fixBrokenImages = function( url ){
+    var img = document.getElementsByTagName('img');
+    var i=0, l=img.length;
+    for(;i<l;i++){
+        var t = img[i];
+        if(t.naturalWidth === 0){
+            //this image is broken
+            t.src = url;
+        }
+    }
+}
+
+// This Section is for managing the Text Area Mesage
+
+
+function unsetText(){
+        if (document.getElementById("message").value == default_text){
+        document.getElementById("message").value = "";
+    }
+}
+
+function setText(){
+
+    if (document.getElementById("message").value == ""){
+        document.getElementById("message").value = default_text;
+    }
+}
+
+function readText(text)
+{
+    // http://stackoverflow.com/questions/15653145/using-google-text-to-speech-in-javascript
+    var msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
+
+}
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+</center>
+    <div id="wide">
+
+        <div class="other" style="height: calc(100% - 5px); overflow-y: scroll;">
+            <center>
+                <br>
+                <a href="/message/{{ recipiant }}"><button type="button" class="button large">Refresh <span class=reload>&#x21bb;</span></button></a>
+                <h2>Message Feed</h2>
+            </center>
+
+        <hr style="width: 95%;">
+
+        <!-- <input type="button" id="next" value="Next" /> -->
+        <!-- <div id="container"></div> -->
+
+        <div>
+        <center>
+        <table>
+
+            {% for message in messages %}
+                <tr>
+                    {% if message[1]|string == uuid|string %}
+                        <td>
+                            {{ message[3] }} <br><img src="/static/images/read.png" style="width:25px;"onClick='readText("{{ message[3] }}")'/>
+                        </td>
+
+                        <th class="head">
+                            <center>
+                                {% if uuid|int in user_follower %}
+                                    {% include "popular_image.html" %}
+                                {% endif %}
+                                <div class="image-cropper">
+                                    <center><img style="display: block; margin: auto;" src="/static/icons/{{ uuid }}{{ sender_data[1] }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';"></center>
+                                </div>
+                                <a class="head" href="/profile/{{ uuid }}">
+                                    {{ sender_data[0] }}
+                                </a>
+                            </center>
+                        </th>
+
+                        <th class="head"><a class="head" href="/message/{{ recipiant }}/delete/{{ message[2] }}">Delete</a></td>
+
+                    {% else %}
+                        <th class="head">
+                                <center>
+                                {% if recipiant|int in user_follower %}
+                                    {% include "popular_image.html" %}
+                                {% endif %}
+                                <div class="image-cropper">
+                                    <center><img style="display: block; margin: auto;" src="/static/icons/{{ recipiant }}{{ recip_data[1] }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';"></center>
+                                </div>
+                                <a class="head" href="/profile/{{ recipiant }}">
+                                    {{ recip_data[0] }}
+                                </a>
+                            </center>
+                        </th>
+
+                        <td>
+                            {{ message[3] }} <br><img src="/static/images/read.png" style="width:25px;"onClick='readText("{{ message[3] }}")'/>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+
+        </table>
+        </div>
+
+    </div>
+
+        <br>
+
+        <form action="/message/{{ recipiant }}/send" method="post" enctype = "multipart/form-data">
+
+            <div id="outter">
+                <div id="large">
+                    <div style="overflow: hidden; padding-right: .5em;">
+                        <input type="text" name="message" id="message" style="width: 100%;">
+                    </div>
+                </div>
+
+                <div id="small">
+                    <span style="display: inline-block; vertical-align: top;">
+                        <button class="button" style="width:160px;"><span>Post!</span></button></div>
+                    </span>
+
+
+                </div>
+
+        </form>
+
+</center>
+
+{% include 'footer.html' %}
+<br>

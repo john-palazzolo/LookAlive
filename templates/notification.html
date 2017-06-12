@@ -1,0 +1,73 @@
+{% with page='Notifications', name=name, uuid=uuid, id=3, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<style>
+    .alignleft {
+    	float: left;
+    	/*padding-left: 80px;*/
+    }
+    .alignright {
+    	float: right;
+    	/*padding-right: 80px;*/
+
+    }
+
+    .alignmiddle {
+        float: right;
+    }
+
+    div.large_button { position: relative; }
+
+    .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+</center>
+    <div id="wide">
+
+        <div class="other" style="height: calc(100% - 5px); overflow-y: scroll;">
+
+            <center>
+                <h1> Notifications ({{ notification|length }}) </h1>
+                <a href="/notifications/{{ uuid }}/delete/all"><button type="button" class="button large">Clear All</button></a>
+                <br>&nbsp<br>
+                <hr>
+            </center>
+
+
+            <table style="width: 100%;">
+
+                {% for note in notification %}
+                    <tr style="width: 100%;">
+                        <th class='none' style="width: 25%;">
+                            <a class="name" href='/notifications/{{ uuid }}/delete/{{ note[1] }}'>Remove</a>
+                        </th>
+
+                        <td style="width: 75%;">
+                            {% if note[0][0]|length == 1 %}
+                                {{ note[0] }}
+                            {% else %}
+                                {{ note[0][0] }} <a href="/profile/{{ note[0][1] }}">Take Me There</a>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+    </div>
+</center>
+
+{% include 'footer.html' %}

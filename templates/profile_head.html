@@ -1,0 +1,110 @@
+<style>
+    .alignleft {
+    	float: left;
+    	/*padding-left: 80px;*/
+    }
+    .alignright {
+    	float: right;
+    	/*padding-right: 80px;*/
+
+    }
+
+    .alignmiddle {
+        float: right;
+    }
+
+    div.large_button { position: relative; }
+
+    .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+
+div.selected{
+    background-color: #A9A9A9;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+</center>
+
+        <div style="width:110px; height:120px;">
+                            {% if page_uuid|int in user_follower %}
+                            {% with width=20 %}
+                            {% include "popular_image.html" %}
+                            {% endwith %}
+                            {% endif %}
+                <div class="image-cropper" style="border: none;">
+
+                    <a href="/static/icons/{{ page_uuid }}{{ img_ext }}"><img src="/static/icons/{{ page_uuid }}{{ img_ext }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';"></a>
+                </div>
+
+                <h2 class="besideimg">                    {% with rank = rank %}
+                    {% include "get_prefix.html" %}
+                    {% endwith %}{{ page_name }}<br> <sub>({{ username }})</sub></h2>
+
+                {% if page_uuid|string != uuid|string %}
+
+                    {% if following == 'False' %}
+                        {% if follow_back == 'True' %}
+                            <a href="/profile/{{ page_uuid }}/4"><button class="button" style="position: absolute; right:230px; top: 135px;">Follow Back</button></a>
+                        {% else %}
+                            <a href="/profile/{{ page_uuid }}/4"><button class="button" style="position: absolute; right:230px; top: 135px;">Follow</button></a>
+                        {% endif %}
+
+                    {% else %}
+                        <a href="/profile/{{ page_uuid }}/4"><button class="button" style="position: absolute; right:230px; top: 135px;">Unfollow</button></a>
+                    {% endif %}
+
+                    <a href="/profile/{{ page_uuid }}/3"><button class="button" style="position: absolute; right:230px; top: 215px;">Message</button></a>
+                {% else %}
+                    <a href="/profile/{{ page_uuid }}/2"><button class="button" style="position: absolute; right:230px; top: 175px;">Edit</button></a>
+                {% endif %}
+
+
+
+
+                <div style="position: absolute; left:500px; top: 175px;">
+                    {{ follow_number[1] }} <a href="/profile/{{ page_uuid }}/5">Followers</a> : <a href="/profile/{{ page_uuid }}/6">Following</a> {{ follow_number[0] }}
+                </div>
+
+        </div>
+
+        <div class="other" style="width:100%; height:12%;">
+                <center>
+                    {% if version == 0 %}
+                        <div class="alignleft other large_button selected" style="width:calc(50% - 6px); height:100%">Posts
+                            <a href="/profile/{{ page_uuid }}/0">
+                                <span class="hyperspan"></span>
+                            </a>
+                        </div>
+
+                        <div class="alignright other large_button" style="width:calc(50% - 6px); height:100%">Media
+                            <a href="/profile/{{ page_uuid }}/1">
+                                <span class="hyperspan"></span>
+                            </a>
+                        </div>
+
+                    {% else %}
+
+                        <div class="alignleft other large_button" style="width:calc(50% - 6px); height:100%">Posts
+                            <a href="/profile/{{ page_uuid }}/0">
+                                <span class="hyperspan"></span>
+                            </a>
+                        </div>
+
+                        <div class="alignright other large_button selected" style="width:calc(50% - 6px); height:100%">Media
+                            <a href="/profile/{{ page_uuid }}/1">
+                                <span class="hyperspan"></span>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </center>
+        </div>

@@ -1,0 +1,123 @@
+{% with page='Search', name=name, uuid=uuid, id=2, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<style>
+    .alignleft {
+    	float: left;
+    	/*padding-left: 80px;*/
+    }
+    .alignright {
+    	float: right;
+    	/*padding-right: 80px;*/
+
+    }
+
+    .alignmiddle {
+        float: right;
+    }
+
+    div.large_button { position: relative; }
+
+    .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+
+</style>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+</center>
+    <div id="wide">
+
+        <div class="other" style="height: calc(100% - 5px); overflow-y: scroll;">
+
+            <center>
+
+                <form class="form-horizontal" action="/search/request" method="post" enctype = "multipart/form-data">
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>Search Users</legend>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="query"></label>
+                            <div class="col-md-4">
+                                <input id="query" name="query" style="width:200px;" placeholder="Search..." class="form-control input-md" required="" type="text" value="{{ query }}">
+                            </div>
+                        </div>
+
+                        <br>
+
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="selectbasic">Number Of Results</label>
+                            <div class="col-md-4">
+                                <select id="selectbasic" name="selectbasic" class="form-control">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50" selected>50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="-1">All</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="go"></label>
+                            <div class="col-md-4">
+                                <button id="go" name="go" class="button large">Search</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </center>
+
+            {% if code == 1 %}
+                <a href="http://cpsuperstore.pythonanywhere.com/games/Galaxy%20Wide%20Domination" target="_blank">You Found An Easter Egg!</a>
+            {% endif %}
+
+            <br>&nbsp
+
+            <fieldset>
+
+                <legend>Results:</legend>
+
+                {% for user in results %}
+
+                    <div>
+                            {% if user[2]|int in user_follower %}
+                            {% with width=15 %}
+                            {% include "popular_image.html" %}
+                            {% endwith %}
+                            {% endif %}
+                        <a class="head" href="/profile/{{ user[2] }}"><img style="width:50px; height:50px;" src="/static/icons/{{ user[2] }}{{ user[4] }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';"/><span style="vertical-align: middle;">
+                            {% with rank = user[5] %}
+                            {% include "get_prefix.html" %}
+                            {% endwith %}
+                            {{ user[1] }}</span>
+                        </a>
+                        <br>&nbsp<br>
+                    </div>
+                {% endfor %}
+
+            </fieldset>
+
+        </div>
+    </div>
+</center>
+
+{% include 'footer.html' %}

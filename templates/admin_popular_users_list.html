@@ -1,0 +1,24 @@
+{% with page='Home' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+
+<table class="data_table">
+    <tr class="data_table">
+        <th class="data_table">Display Name</th>
+        <th class="data_table">User Name</th>
+        <th class="data_table">UUID</th>
+        <th class="data_table">Force Popular</th>
+        <th class="data_table">Enough Users</th>
+    </tr>
+
+    {% for user in popular_users %}
+    <tr class="data_table">
+        <th class="data_table">{{ user [0] }}</th>
+        <th class="data_table">{{ user [1] }}</th>
+        <th class="data_table">{{ user [2] }}</th>
+        <th class="data_table">{{ user [3] }}</th>
+        <th class="data_table">{{ user [4] }}</th>
+    </tr>
+    {% endfor %}
+</table>

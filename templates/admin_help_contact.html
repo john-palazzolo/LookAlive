@@ -1,0 +1,28 @@
+{% with page='Contact' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<form class="form-horizontal" action="/admin/help/contact/update" method="post" enctype = "multipart/form-data">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Contact Info Editor</legend>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="new_faq"></label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="new_faq" name="new_faq" rows="10" cols="50">{{ contact }}</textarea>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="update"></label>
+            <div class="col-md-4">
+                <button id="contact_update" name="contact_update" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

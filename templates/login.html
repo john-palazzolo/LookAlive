@@ -1,0 +1,141 @@
+{% with page='Login / Sign Up', name=name, uuid=uuid, id=-1 %}
+{% include "buttons.html" %}
+{% endwith %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/special.css') }}">
+
+
+<center>
+    <div id="wide">
+
+        <!-- Log In Form -->
+        <form class="form-horizontal" action="/log_in" method="post" enctype = "multipart/form-data">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Log In</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="user"></label>
+                <div class="col-md-4">
+                    <input id="user" name="user" placeholder="Username" class="form-control input-md" required="" type="text">
+                </div>
+            </div>
+
+            <br>
+
+            <!-- Password input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="password"></label>
+                <div class="col-md-4">
+                    <input id="password" name="password" placeholder="Password" class="form-control input-md" required="" type="password">
+                </div>
+            </div>
+
+            <br>
+
+            <!-- Error Message Handler -->
+            {% if error_2 %}
+                <p><strong>Error:</strong> {{ error_2 }}
+            {% endif %}
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="go"></label>
+                <div class="col-md-4">
+                    <button id="go" name="go" class="button"><span>Log In </span></button>
+                </div>
+            </div>
+
+        </fieldset>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form class="form-horizontal" action="/register" method="post" enctype = "multipart/form-data">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Sign Up</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="display"></label>
+                    <div class="col-md-4">
+                        <input id="display" name="display" placeholder="Display Name" class="form-control input-md" required="" type="text">
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="user"></label>
+                    <div class="col-md-4">
+                        <input id="user" name="user" placeholder="Username" class="form-control input-md" required="" type="text">
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- Password input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pass_1"></label>
+                    <div class="col-md-4">
+                        <input id="pass_1" name="pass_1" placeholder="Password" class="form-control input-md" required="" type="password">
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pass_2"></label>
+                    <div class="col-md-4">
+                        <input id="pass_2" name="pass_2" placeholder="Confim Password" class="form-control input-md" required="" type="password">
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="email"></label>
+                    <div class="col-md-4">
+                        <input id="email" name="email" placeholder="E-Mail Address" class="form-control input-md" required="" type="text">
+                        <br>
+                        <sub class="help-block">A Confirmation E-Mail Will Be Sent</sub>
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- Error Message Handler -->
+                {% if error %}
+                    <p><strong>Error:</strong> {{ error }}
+                {% endif %}
+
+                <br>
+
+                <label><input type="checkbox" name="myCheckbox" required> You have read and aggree to our <a href="/eula" target="_blank">Licence Agreement</a></label>
+
+                <br>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="go"></label>
+                    <div class="col-md-4">
+                        <button id="go" name="go" class="button"><span>Sign Up </span></button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+
+</center>
+{% with balloons=balloons, snow_flake=snow_flake %}
+    {% include 'footer.html' %}
+{% endwith %}

@@ -1,0 +1,51 @@
+{% with page='Profile', name=name, uuid=uuid, id=1, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<style>
+    .alignleft {
+    	float: left;
+    	/*padding-left: 80px;*/
+    }
+    .alignright {
+    	float: right;
+    	/*padding-right: 80px;*/
+
+    }
+
+    .alignmiddle {
+        float: right;
+    }
+
+    div.large_button { position: relative; }
+
+    .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+</center>
+    <div id="wide">
+
+        <div class="other" style="height: calc(100% - 32% - 10px); overflow-y: scroll;">
+
+            <h1>{{ page_name }}'s {{ action }}:</h1>
+            <hr>
+            {% for person in followers %}
+                <a href="/profile/{{ person[6] }}">{{ person[0] }} - ({{ person[1] }})</a>
+                <br>
+            {% endfor %}
+
+        </div>
+    </div>
+</center>
+
+{% include 'footer.html' %}

@@ -1,0 +1,19 @@
+Christopher P.
+0
+Programmer / C.E.O. / Guy Who Made A Bad Career Choice
+.png
+       Hi. My name is Christopher
+              I have been programming for the last 6 years.
+              I am able to code in 11 languages. (12 if you count XML)
+              Some of these languages include Python, Java, C++, and HTML.
+              
+              My favourite type of music is Classical and Speed Metal
+              
+              I have created many games in many languages.
+              My most recent game is Galaxy Wide Domination.
+              
+              You can visit my website:  http://cpsuperstore.pythonanywhere.com/
+              to see my other projects
+              
+              ASCII BIN:
+              01001001001000000100110001101001011010110110010100100000010000110110100001100101011001010111001101100101       

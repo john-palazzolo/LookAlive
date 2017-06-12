@@ -1,0 +1,73 @@
+/* See https://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp for transition curve styles*/
+
+.hidden {display:none;}
+
+
+/* Balloon CSS */
+
+@-webkit-keyframes balloon
+{
+    from {
+        top: 100%;
+    }
+    to {
+        top: -80;
+    }
+}
+@keyframes balloon
+{
+    from {
+        top: 100%;
+    }
+    to {
+        top: -80;
+    }
+}
+
+img.balloon{
+    position:absolute;
+    z-index:100;
+    text-decoration: none;
+    padding-right: 20px;
+
+    height: 75px;
+    position: absolute;
+    -webkit-animation: balloon 2s ease-in;
+    animation: balloon 2s ease-in;
+    top:-100%;
+}
+
+
+/* SNOW FLAKE CSS */
+
+@-webkit-keyframes snow_flake
+{
+    from {
+        top: -80;
+    }
+    to {
+        top: 100%;
+    }
+}
+@keyframes snow_flake
+{
+    from {
+        top: -80;
+    }
+    to {
+        top: 100%;
+    }
+}
+
+img.snow_flake{
+    position:absolute;
+    z-index:100;
+    text-decoration: none;
+    padding-right: 20px;
+
+    height: 30px;
+    position: absolute;
+    -webkit-animation: snow_flake 4s linear;
+    animation: snow_flake 4s linear;
+    top:-100%;
+}

@@ -1,0 +1,24 @@
+{% with page='Questions' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+
+<table class="data_table">
+  <tr class="data_table">
+    <th class="data_table">Question ID</th>
+    <th class="data_table">Name</th>
+    <th class="data_table">Question</th>
+    <th class="data_table">Contact</th>
+    <th class="data_table">Delete</th>
+  </tr>
+  {% for question in questions %}
+  <tr class="data_table">
+    <td class="data_table">{{ question[0] }}</td>
+    <td class="data_table">{{ question[1] }}</td>
+    <td class="data_table">{{ question[2] }}</td>
+    <td class="data_table">{{ question[3] }}</td>
+    <td class="data_table"> <a href='/admin/help/questions/delete/{{ question[0] }}'>Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+

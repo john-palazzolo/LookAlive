@@ -1,0 +1,193 @@
+{% with page='Settings' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<script>
+
+window.onload = function(){
+    //Get select object
+    var objSelect = document.getElementById("special_event");
+    setSelectedValue(objSelect, "{{ current_settings[2] }}");
+
+    var objSelect = document.getElementById("site_preset");
+    setSelectedValue(objSelect, "{{ current_settings[4] }}");
+
+    var objSelect = document.getElementById("selectbasic");
+
+    var mode = 1;
+    if ("{{ current_settings[6] }}" == 1) {
+        mode = 1;
+        hideOtherBox()
+    }
+    else{
+        mode = 2;
+        document.getElementById("other").value = "{{ current_settings[6] }}";
+    }
+    setSelectedValue(objSelect, mode);
+
+    var objSelect = document.getElementById("motd_mode");
+    setSelectedValue(objSelect, "{{ current_settings[7] }}");
+}
+
+function hideOtherBox(){
+    showStuff("other", 0);
+}
+function setSelectedValue(selectObj, valueToSet) {
+    for (var i = 0; i < selectObj.options.length; i++) {
+        if (selectObj.options[i].value== valueToSet) {
+            selectObj.options[i].selected = true;
+            return;
+        }
+    }
+}
+
+function ConfirmLogClear()
+{
+
+    var retVal = confirm("Are You Sure You Want To Clear The Log? (This Can Not Be Undone)");
+
+    if( retVal == true ){
+        window.location.href = "/admin/log/clear";
+    }
+    else{
+        return false;
+    }
+}
+
+
+function update_box(value)
+{
+    if (value == 2)
+	{
+	showStuff("other", 1);
+	}
+
+	if (value == 1)
+	{
+	showStuff("other", 0);
+	}
+}
+
+function showStuff(id, state) {
+	var action = "";
+	if (state == 0){
+		action = "hidden";
+	}
+	else
+	{
+		action = "visible";
+	}
+
+    document.getElementById(id).style.visibility = action;
+}
+
+</script>
+
+
+<form class="form-horizontal" action="/admin/settings/go" method="post" enctype = "multipart/form-data">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Advanced Settings</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="popular_cap">Popular Posts Cap</label>
+            <div class="col-md-4">
+                <input id="popular_cap" name="popular_cap" value="{{ current_settings[1] }}" class="form-control input-md" type="text" size="100%" maxlength="4"><br>
+                <sub><span class="help-block">4 Characters Maximum. Must Be Numbers.</span></sub>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="special_event">Special Event On Login Page</label>
+            <div class="col-md-4">
+                <select id="special_event" name="special_event" class="form-control">
+                    <option value="0">None</option>
+                    <option value="1">Balloons</option>
+                    <option value="2">Snow Flake</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+                <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="site_preset">Website Event Preset</label>
+            <div class="col-md-4">
+                <select id="site_preset" name="site_preset" class="form-control">
+                    {% for preset in all_presets %}
+                        <option value="{{ preset[0] }}">{{ preset[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="banned">Banned Message</label>
+            <div class="col-md-8">
+                <input id="banned" name="banned" value="{{ current_settings[3] }}" class="form-control input-md" type="text" size="100%"><br>
+                <sub><span class="help-block">Use '&amp;' For Action</span></sub>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="popular_follower_cap">Popular Followers Minimum</label>
+            <div class="col-md-4">
+                <input id="popular_follower_cap" name="popular_follower_cap" value="{{ current_settings[5] }}" class="form-control input-md" type="text" size="100%"><br>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">MOTD</label>
+  <div class="col-md-4">
+    <select id="selectbasic" name="selectbasic" class="form-control" onmousedown="this.value='';" onchange="update_box(this.value);">
+      <option value="1">Special Holiday</option>
+      <option value="2">Other...</option>
+    </select>
+    <br>
+    <input id="other" name="other" placeholder="" class="form-control input-md" type="text" size="100%">
+  </div>
+</div>
+
+
+
+        <!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">MOTD Banner Style</label>
+  <div class="col-md-4">
+    <select id="motd_mode" name="motd_mode" class="form-control">
+      <option value=0>Bad</option>
+      <option value=1>Warning</option>
+      <option value=2>Good</option>
+    </select>
+  </div>
+</div>
+
+<br>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="go"></label>
+            <div class="col-md-4">
+                <button id="go" name="go" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<button onClick="ConfirmLogClear();">Clear The Log</button> <a target="_blank" href="/login">Login Page Preview</a> <a target="_blank" href="/admin/log"><button >View The Log</button></a><br>

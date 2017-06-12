@@ -1,0 +1,122 @@
+{% with page='Most Liked', name=name, uuid=uuid, id=0, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+<style>
+
+    #outter {
+    width: 100%;
+    display: flex;
+    }
+    #small {
+    width: 160px;
+    }
+    #large {
+    width: calc(100% - 200px);
+    }
+
+</style>
+
+<script>
+
+    fixBrokenImages = function( url )
+    {
+    var img = document.getElementsByTagName('img');
+    var i=0, l=img.length;
+    for(;i<l;i++){
+        var t = img[i];
+        if(t.naturalWidth === 0){
+            //this image is broken
+            t.src = url;
+            }
+        }
+    }
+
+    window.onload = function()
+    {
+        fixBrokenImages('/static/images/video.png');
+    }
+
+</script>
+
+<center>
+    <div id="wide">
+        <div class="other" style="height: calc(100% - 3px); overflow-y: scroll;">
+
+            <br>
+            <a href="/"><button type="button" class="button large">Refresh <span class=reload>&#x21bb;</span></button></a>
+
+            {% if cap == None %}
+                <h2>Most Popular Posts</h2>
+            {% else %}
+                <h2>{{ cap }} Most Popular Posts</h2>
+            {% endif %}
+
+            <hr style="width: 95%;">
+
+                    <table>
+
+            {% for post in comments %}
+                <tr>
+                    <th class="head"><a class="head" href="/profile/{{ post[2] }}">
+
+                    <center>
+                        <div class="image-cropper">
+                                <center><img style="display: block; margin: auto;" src="/static/icons/{{ post[2] }}{{ post[7] }}" onError="this.onerror=null;this.src='/static/images/no_icon.png';"></center>
+                        </div>
+
+                        <br>
+                    </center>
+
+                        {{ post[0] }}
+                        </a>
+
+                        {% if post[5] == 0 %}
+                        <td>{{ post[1] }}
+                                {% if post[0] != name %}
+                                    <br><p align="right"><a href="/post/like/{{ post[4] }}"><img style="height:20px;" src="/static/images/like.png"/></a> : {{ post[6] }}</p>
+                                {% else %}
+                                    <p style="color: #000000;" align="right"><img style="height:20px;" src="/static/images/like.png"/> : {{ post[6] }}</p>
+                                {% endif %}
+                    {% endif %}
+
+                        </td>
+                        </th>
+
+
+                    {% if post[5] != 0 %}
+                        <td>
+                            <a class="name" href="/static/files/{{ post[4] }}{{ post[5] }}" target="_blank">
+
+                                <img id="content" style="height: 150px;" src="/static/files/{{ post[4] }}{{ post[5] }}" align="left" />
+                                <p style="color: #000000;">&nbsp{{ post[1] }}</p>
+                                {% if post[0] != name %}
+                                    <br><p align="right"><a align="right" href="/post/like/{{ post[4] }}"><img style="height:20px;" src="/static/images/like.png"/></a> :  {{ post[6] }}</p>
+                                {% else %}
+                                    <br><p style="color: #000000;" style="style=display:inline-block"><img style="height:20px;" src="/static/images/like.png"/> : {{ post[6] }}</p>
+                                {% endif %}
+
+                            </a>
+                        </td>
+                    {% endif %}
+
+                    {% if post[0] == name %}
+
+                        <th class="head"><a class="head" href="/post/delete/{{ post[2] }}/{{ post[4] }}/0">Delete</a></td>
+
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+        </table>
+
+        </div>
+    </div>
+
+</center>
+
+{% include 'footer.html' %}

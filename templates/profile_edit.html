@@ -1,0 +1,115 @@
+{% with page='Profile', name=name, uuid=uuid, id=1, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<style>
+    .alignleft {
+    	float: left;
+    	/*padding-left: 80px;*/
+    }
+    .alignright {
+    	float: right;
+    	/*padding-right: 80px;*/
+
+    }
+
+    .alignmiddle {
+        float: right;
+    }
+
+    div.large_button { position: relative; }
+
+    .hyperspan {
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+</center>
+    <div id="wide">
+
+
+        <div class="other" style="height: calc(100% - 5px); overflow-y: scroll;">
+
+            <br>
+
+            <form class="form-horizontal" action="/profile_edit/{{ page_uuid }}" method="post" enctype = "multipart/form-data">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Edit {{ name }}</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="display"></label>
+                        <div class="col-md-4">
+                            <input id="display" name="display" placeholder="New Display Name" class="form-control input-md" type="text">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="user"></label>
+                        <div class="col-md-4">
+                            <input id="user" name="user" placeholder="New Username" class="form-control input-md" type="text">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="email"></label>
+                        <div class="col-md-4">
+                            <input id="email" name="email" placeholder="New E-Mail" class="form-control input-md" type="text">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password"></label>
+                        <div class="col-md-4">
+                            <input id="password" name="password" placeholder="New Password" class="form-control input-md" type="password">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- File Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="icon">Account Icon</label>
+                        <div class="col-md-4">
+                            <input id="icon" name="icon" class="input-file" type="file">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="done"></label>
+                        <div class="col-md-4">
+                            <button id="done" name="done" class="btn btn-primary">Edit</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+
+        </div>
+    </div>
+</center>
+
+{% include 'footer.html' %}

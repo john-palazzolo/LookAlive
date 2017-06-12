@@ -1,0 +1,36 @@
+{% if not bracket %}
+
+    {% if rank|string == '-1' %}
+        [BANNED]
+    {% elif rank|string == '0' %}
+        [GUEST]
+    {% elif rank|string == '1' %}
+        [JR. MOD]
+    {% elif rank|string == '2' %}
+        [MODERATOR]
+    {% elif rank|string == '3' %}
+        [ADMIN]
+    {% elif rank|string == '4' %}
+        [OWNER]
+    {% else %}
+        {{ rank|string }}
+    {% endif %}
+
+
+{% else %}
+
+    {% if rank|string == '-1' %}
+        BANNED
+    {% elif rank|string == '0' %}
+        GUEST
+    {% elif rank|string == '1' %}
+        JR. MOD
+    {% elif rank|string == '2' %}
+        MODERATOR
+    {% elif rank|string == '3' %}
+        ADMIN
+    {% elif rank|string == '4' %}
+        OWNER
+    {% endif %}
+
+{% endif %}

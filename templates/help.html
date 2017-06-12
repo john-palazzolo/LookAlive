@@ -1,0 +1,134 @@
+{% with page='Help', name=name, uuid=uuid, id=0, ext=ext, unseen=unseen, notify=notify %}
+{% include "buttons.html" %}
+{% endwith %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/comment.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/form.css') }}">
+
+<style>
+
+    #outter {
+    width: 100%;
+    display: flex;
+    }
+    #small {
+    width: 160px;
+    }
+    #large {
+    width: calc(100% - 200px);
+    }
+    #div1 {
+        width: 33%;
+        display: inline-block;
+        word-wrap: break-word;
+        top: 12px;
+    }
+    p.desc{
+        white-space: initial;
+    }
+    body { margin:0px; }
+</style>
+
+<script>
+
+        function confirm_box() {
+            var ok = {{ ok }};
+            alert('Your Message Has Been Sucsessfuly Uploaded!');
+        }
+        window.onload = confirm_box;
+
+</script>
+
+    <div id="wide">
+        <div class="other" style="height: calc(100% - 3px); overflow-y: scroll;">
+
+            <fieldset>
+                <legend>Our Contact Information</legend>
+
+                <br>
+
+                {% for contact in contact_info %}
+
+                    {{ contact }} <br>
+
+                {% endfor %}
+
+                <br>&nbsp
+
+            </fieldset>
+
+            <br>
+
+
+            <fieldset>
+
+                <br>
+
+                <legend>FAQ <sub>(Frequently Asked Questions)</sub></legend>
+                {% for line in faq %}
+                    {{ line }}<br>
+                {% endfor %}
+
+                <br>
+
+            </fieldset>
+
+            <br>
+
+            <form action="/help/ask" method="post" enctype = "multipart/form-data">
+                <fieldset>
+                    <legend>Ask A Question</legend>
+
+                    <br>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name"></label>
+                        <div class="col-md-4">
+                            <input id="name" name="name" placeholder="Your Name" class="form-control input-md" required="" type="text">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="question"></label>
+                        <div class="col-md-4">
+                            What Is Your Question/Concern?<br>
+                            <textarea class="form-control" id="question" name="question" rows="4" cols="50" required></textarea>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contact"></label>
+                        <div class="col-md-4">
+                            <input id="contact" name="contact" placeholder="How Can We Contact You?" class="form-control input-md" required="" type="text">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="go"></label>
+                        <div class="col-md-4">
+                            <button id="go" name="go" class="btn btn-primary">Ask</button>
+                        </div>
+                    </div>
+
+                    <br>
+
+                </fieldset>
+            </form>
+
+
+        </div>
+    </div>
+
+
+{% include 'footer.html' %}

@@ -1,0 +1,33 @@
+{
+    "0":
+    {
+        'name': "Default",
+        'login_event': 0,
+        'logo': "default",
+        'popular_picture': 'star',
+    },
+
+    "1":
+    {
+        'name': "Birthday",
+        'login_event': 1,
+        'logo': "birthday",
+        'popular_picture': 'party_hat',
+    },
+
+    "2":
+    {
+        'name': "Christmas",
+        'login_event': 2,
+        'logo': "christmas",
+        'popular_picture': 'christmas',
+    },
+
+    "3":
+    {
+        'name': "Put A Pillow On Your Fridge Day",
+        'login_event': 0,
+        'logo': "papoyfd",
+        'popular_picture': 'pillow',
+    },
+}

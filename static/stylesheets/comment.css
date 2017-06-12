@@ -1,0 +1,46 @@
+td {
+    border:solid black 1px;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    width: 75%;
+    padding: 10px
+    padding: 10px 10px 1em 10px
+
+}
+
+th {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    width: 25%;
+
+    padding: 10px 10px 1em 10px
+}
+
+th.head {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+    width: 25%;
+
+    padding: 10px 10px 1em 10px
+}
+
+
+a.head {
+    color: #000000;
+    text-decoration: none;
+}
+
+a.name {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+td.ghost {
+    background-color: #FFFFFF;
+}
+

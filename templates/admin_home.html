@@ -1,0 +1,70 @@
+{% with page='Home' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<script>
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+function startTime() {
+    var now = new Date();
+    var today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+    dd='0'+dd;
+    }
+    if(mm<10){
+    mm='0'+mm;
+    }
+    var date = dd+'/'+mm+'/'+yyyy;
+
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+
+    // make a variable for standard time (hours)
+    if (h > 12){
+        var hs = h - 12
+    }
+    else
+    {
+        var hs = h
+    }
+
+    // add a zero in front of numbers<10
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('time').innerHTML ="Server Time: " + date + " " + h + "(" + hs + ")" + ":" + m + ":" + s;
+    t = setTimeout(function() {
+    startTime()
+    }, 500);
+}
+
+window.onload = function(){
+    startTime();
+}
+</script>
+
+<fieldset>
+<legend>Server Information:</legend>
+
+<div id="time"></div><br>
+{{ number }} Members<br>
+{{ comments }} Posts<br>
+{{ private_messages }} Private Messages
+
+<br>&nbsp<br>
+
+View The <a href="/admin/log">Control Pannel Log</a><br>
+View The <a href="/admin/popular_list">Popular Users</a>
+
+</fieldset>
+

@@ -1,0 +1,78 @@
+{% with page='Edit Member' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+
+<input id="button" type="button" value="Delete {{ info[0]  }}" />
+
+<br>&nbsp
+
+
+<form class="form-horizontal" action="/admin/team_member/{{ info[1] }}/go" method="post" enctype = "multipart/form-data">
+
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Edit {{ info[0] }} ({{ info[1] }})</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">Name</label>
+            <div class="col-md-4">
+                <input id="name" name="name" value="{{ info[0] }}" class="form-control input-md" type="text">
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="uuid">UUID</label>
+            <div class="col-md-4">
+                <input id="uuid" name="uuid" value="{{ info[1] }}" class="form-control input-md" type="text">
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">Title</label>
+            <div class="col-md-4">
+                <input id="title" name="title" value="{{ info[2] }}" class="form-control input-md" type="text">
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="extension">Icon Extension</label>
+                <div class="col-md-4">
+            <input id="extension" name="extension" class="form-control input-md" type="text" value="{{ info[3] }}">
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="description">Biography</label>
+                <div class="col-md-4">
+            <textarea class="form-control" id="description" name="description" cols="100" rows="10">{% for line in info[4:] %} {{ line }} {% endfor %}</textarea>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="go"></label>
+                <div class="col-md-4">
+            <button id="go" name="go" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+

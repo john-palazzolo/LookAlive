@@ -1,0 +1,7 @@
+Rank IDs:
+-1 - Banned
+0  - Guest / Member
+1  - Jr. Mod
+2  - Moderator
+3  - Admin
+4  - Owner

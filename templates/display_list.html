@@ -1,0 +1,16 @@
+<style>
+
+    body
+    {
+        font-family: Monospace;
+    }
+
+</style>
+{% if not page_title %}
+    <title>Display List</title>
+{% else %}
+    <title>{{ page_title }}</title>
+{% endif %}
+{% for line in display_list %}
+    {{ line }}<br>
+{% endfor %}

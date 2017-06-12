@@ -1,0 +1,27 @@
+<style>
+    a.foot{
+        color: #FFFFFF;
+    }
+</style>
+
+<script>
+
+function pop_balloon()
+{
+    var audio = new Audio('audio_file.mp3');
+    audio.play();
+}
+</script>
+
+&nbsp
+<div style="background-color: #000000; color: #FFFFFF; padding: 10px; border-radius: 3px;">
+    <center>Problem? Visit our <a class="foot" href="/help">Help Page</a>. Also, Check out our <a class="foot" href="/team">Development Team</a>! Administrator? Visit the new <a class="foot" href="/admin">Control Pannel</a>. </center>
+</div>
+
+{% for balloon in balloons %}
+    <img class="balloon" onClick="className = 'hidden'"style="left: {{ balloon[0] }}%; -webkit-animation-duration: {{ balloon[2] }}s; animation-duration: {{ balloon[2] }}s;" src="{{ balloon[1] }}" onclick="this.style.display='none';" style="" />
+{% endfor %}
+
+{% for flake in snow_flake %}
+    <img class="snow_flake" onClick="className = 'hidden'"style="left: {{ flake[0] }}%; -webkit-animation-duration: {{ flake[2] }}s; animation-duration: {{ flake[2] }}s;" src="{{ flake[1] }}" onclick="this.style.display='none';" style="" />
+{% endfor %}

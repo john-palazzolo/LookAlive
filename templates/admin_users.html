@@ -1,0 +1,65 @@
+{% with page='Users' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<script>
+    function SelectElement(valueToSelect)
+    {
+        var element = document.getElementById('selectbasic');
+        element.value = valueToSelect;
+    }
+
+    function SelectRadio(radio){
+        radiobtn = document.getElementById(radio);
+        radiobtn.checked = true;
+    }
+
+    window.onload = function ()
+    {
+        SelectElement("/admin/users/view/{{ index }}");
+        SelectRadio('d');
+        SelectRadio('{{ state }}');
+    }
+
+
+
+</script>
+
+<form>Sort By:
+    <select id="selectbasic" name="selectbasic" onChange="location=this.options[this.selectedIndex].value;">
+        <option value="/admin/users/view/0">Display Name</option>
+        <option value="/admin/users/view/1">User Name</option>
+        <option value="/admin/users/view/2">Email</option>
+        <option value="/admin/users/view/3">UUID</option>
+        <option value="/admin/users/view/4">Rank</option>
+    </select>
+</form>
+
+<input type="radio" name="sort" id="a" onclick="window.location='/admin/users/view/{{ index }}/a'">Ascending</input>
+<input type="radio" name="sort" id="d" onclick="window.location='/admin/users/view/{{ index }}/d'">Descending</input>
+
+<br>&nbsp
+
+<table class="data_table">
+  <tr class="data_table">
+    <th class="data_table">Display Name</th>
+    <th class="data_table">User Name</th>
+    <th class="data_table">Email</th>
+    <th class="data_table">UUID</th>
+    <th class="data_table">Rank ID</th>
+    <th class="data_table">Image</th>
+    <th class="data_table">Force Popular</th>
+  </tr>
+  {% for user in users|sort(attribute=index, reverse=rev) %}
+  <tr class="data_table">
+    <td class="data_table" onclick="location.href='/admin/users/{{ user[3] }}'">{{ user[0] }}</td>
+    <td class="data_table" onclick="location.href='/admin/users/{{ user[3] }}'">{{ user[1] }}</td>
+    <td class="data_table" onclick="location.href='/admin/users/{{ user[3] }}'">{{ user[2] }}</td>
+    <td class="data_table" onclick="location.href='/admin/users/{{ user[3] }}'">{{ user[3] }}</td>
+    <td class="data_table" onclick="location.href='/admin/users/{{ user[3] }}'">{% if user[4]|string == '-1' %} BANNED {% elif user[4]|string == '0' %} GUEST {% elif user[4]|string == '1' %} JR. MOD {% elif user[4]|string == '2' %} MODERATOR {% elif user[4]|string == '3' %} ADMIN {% elif user[4]|string == '4' %} OWNER {% else %} {{ user[4] }} {% endif %}</td>
+    <td class="data_table"><a href="View Image" onclick="window.open('/static/icons/{{ user[3] }}{{ user[5] }}', 'newwindow', 'width=300, height=250'); return false;">View</a></td>
+    <td class="data_table"><input onClick="window.location.href = '/admin/users/{{ user[3] }}/toggle';" type="checkbox" name="{{ user[3] }}-popular" id=name="{{ user[3] }}-popular" value="popular" {% if user[6] == 1 %} checked {% endif %}> </td>
+  </tr>
+  {% endfor %}
+</table>
+

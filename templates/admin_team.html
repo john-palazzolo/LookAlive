@@ -1,0 +1,64 @@
+{% with page='Team' %}
+{% include "admin_buttons.html" %}
+{% endwith %}
+
+<script>
+    function clearValues()
+    {
+        document.getElementById('name').value= "";
+        document.getElementById('uuid').value= "";
+    }
+</script>
+
+<h2>Team Members:</h2>
+
+<table class="data_table">
+  <tr class="data_table">
+    <th class="data_table">Name</th>
+    <th class="data_table">UUID</th>
+    <th class="data_table">Title</th>
+    <th class="data_table">Biography</th>
+    <th class="data_table">Image</th>
+  </tr>
+  {% for user in team %}
+  <tr class="data_table">
+    <td class="data_table" onclick="location.href='/admin/team_member/{{ user[1] }}'">{{ user[0] }}</td>
+    <td class="data_table" onclick="location.href='/admin/team_member/{{ user[1] }}'">{{ user[1] }}</td>
+    <td class="data_table" onclick="location.href='/admin/team_member/{{ user[1] }}'">{{ user[2] }}</td>
+    <td class="data_table"><a href="View Image" onclick="window.open('/admin/team/bio/{{ user[1] }}', 'newwindow', 'width=300, height=250'); return false;">View</a></td>
+    <td class="data_table"><a href="View Image" onclick="window.open('/static/icons/{{ user[1] }}{{ user[3] }}', 'newwindow', 'width=300, height=250'); return false;">View</a></td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+<br>&nbsp<br>&nbsp<br>
+<hr>
+
+<h2>Development Testers:</h2>
+
+<form class="form-horizontal" action="/admin/team/dev_tester/add" method="post" enctype = "multipart/form-data">
+    <input id="button" type="button" value="Clear Values" onclick="clearValues();"/>
+      <input id="name" name="name" placeholder="Name" class="form-control input-md" required="" type="text">
+      <input id="uuid" name="uuid" placeholder="UUID" class="form-control input-md" required="" type="text">
+      <button id="add" name="add" class="btn btn-primary">Add</button>
+</form>
+
+<table class="data_table">
+  <tr class="data_table">
+    <th class="data_table">Name</th>
+    <th class="data_table">UUID</th>
+    <th class="data_table">Delete</th>
+  </tr>
+
+  {% for user in dev %}
+  <tr class="data_table">
+    <td class="data_table">{{ user[0] }}</td>
+    <td class="data_table">{{ user[1] }}</td>
+    <td class="data_table"><a href='/admin/team/dev_tester/delete/{{ user[1] }}'>Delete</a></td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+<br>&nbsp<br>&nbsp<br>&nbsp<br>&nbsp
