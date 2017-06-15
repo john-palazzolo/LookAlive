@@ -1,8 +1,9 @@
 import config
+import os
 
 
 def __open_file(mode='r'):
-    temp = open('/home/lookalive/lookalive/config/presets.txt', mode)
+    temp = open(os.getcwd()  + '/lookalive/config/presets.txt', mode)
 
     if mode == 'r':
         presets = temp.readlines()
@@ -37,6 +38,4 @@ def get_preset_props(preset_id=None):
         preset_id = int(config.site_preset())
 
     presets = __open_file()
-    print '-'*64
-    print presets
     return presets[str(preset_id)]

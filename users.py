@@ -3,7 +3,7 @@ import notification
 import os
 import message
 import comment
-import things
+import hash
 import config
 from builtin import *
 
@@ -83,7 +83,7 @@ def get_password(uuid):
     return str(password[0])
 
 def hash_password(password):
-    return hash(password)
+    return hash.hash_string(password)
 
 
 def get_user_uuid(user):
@@ -205,12 +205,15 @@ def follow(uuid, follower_uuid, notify=True, toggle_mode=True):
 
         c.execute('SELECT * FROM users WHERE uuid=?', (follower_uuid,))
 
-        users = c.fetchall()[0]
-        users = eval(users[4])
-        users.append(int(uuid))
-        users = str(users)
+        try:
+            users = c.fetchall()[0]
+            users = eval(users[4])
+            users.append(int(uuid))
+            users = str(users)
 
-        c.execute('UPDATE users SET followers = ? WHERE uuid = ?', (users, follower_uuid,))
+            c.execute('UPDATE users SET followers = ? WHERE uuid = ?', (users, follower_uuid,))
+        except IndexError:
+            pass
 
         conn.commit()
         c.close()
@@ -512,8 +515,6 @@ def get_popular_list():
     account = c.fetchall()
 
     popular = []
-
-    print '*'*64
 
     for person in account:
         status = get_popular(person[6])[0][0]

@@ -1,6 +1,8 @@
+import os
+
 
 def __open_file(mode='r'):
-    temp = open('/home/lookalive/lookalive/config/config.txt', mode)
+    temp = open(os.getcwd() + '/lookalive/config/config.txt', mode)
 
     if mode == 'r':
         config = temp.readlines()

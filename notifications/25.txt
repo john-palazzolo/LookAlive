@@ -1,5 +1,0 @@
-['Christopher Has Liked Your Post!', 0]
-['Nat Is Now Follwing You!', 17]
-['You Are Now Following Nat!', u'17']
-['CPSuperstore Is Now Follwing You!', 0]
-["You Have Liked Nick Bowman's Post!", 1]

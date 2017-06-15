@@ -1,2 +1,0 @@
-['You Are Now Following Salvatore Palazzolo!', u'25']
-['Salvatore Palazzolo Is Now Follwing You!', 25]

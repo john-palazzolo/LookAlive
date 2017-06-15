@@ -127,28 +127,31 @@ def get_user_comment(uuid):
 
 
 def like_post(uuid, post_id):
-    conn, c = __open_database()
-    c.execute('SELECT * FROM comments WHERE id=?', (post_id,))
+    try:
+        conn, c = __open_database()
+        c.execute('SELECT * FROM comments WHERE id=?', (post_id,))
 
-    post_object = c.fetchall()
-    post_object = post_object[0]
+        post_object = c.fetchall()
+        post_object = post_object[0]
 
-    likes = eval(post_object[6])
+        likes = eval(post_object[6])
 
-    if check_like(uuid, post_id) is False:
-        likes.append(uuid)
-        notification.add_notification(uuid, 'You Have Liked {}\'s Post!'.format(users.get_user_name(post_object[2])), post_object[2])
-        notification.add_notification(post_object[2], '{} Has Liked Your Post!'.format(users.get_user_name(uuid)), uuid)
-    else:
-        likes = filter(lambda a: a != uuid, likes)
-        notification.add_notification(uuid, 'You No Longer Like {}\'s Post!'.format(users.get_user_name(post_object[2])), post_object[2])
-        notification.add_notification(post_object[2], '{} No Longer Likes Your Post!'.format(users.get_user_name(uuid)), uuid)
+        if check_like(uuid, post_id) is False:
+            likes.append(uuid)
+            notification.add_notification(uuid, 'You Have Liked {}\'s Post!'.format(users.get_user_name(post_object[2])), post_object[2])
+            notification.add_notification(post_object[2], '{} Has Liked Your Post!'.format(users.get_user_name(uuid)), uuid)
+        else:
+            likes = filter(lambda a: a != uuid, likes)
+            notification.add_notification(uuid, 'You No Longer Like {}\'s Post!'.format(users.get_user_name(post_object[2])), post_object[2])
+            notification.add_notification(post_object[2], '{} No Longer Likes Your Post!'.format(users.get_user_name(uuid)), uuid)
 
-    c.execute('UPDATE comments SET likes = ? WHERE id = ?', (str(likes), post_id,))
+        c.execute('UPDATE comments SET likes = ? WHERE id = ?', (str(likes), post_id,))
 
-    conn.commit()
-    c.close()
-    conn.close()
+        conn.commit()
+        c.close()
+        conn.close()
+    except IndexError:
+        pass
 
 
 

@@ -1,2 +1,0 @@
-['You Are Now Following CPSuperstore!', u'0']
-['You Are No Longer Following CPSuperstore!', u'0']
