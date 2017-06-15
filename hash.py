@@ -4,5 +4,3 @@
 
 def hash_string(string):
     return string
-
-print
