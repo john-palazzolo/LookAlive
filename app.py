@@ -1022,7 +1022,10 @@ def admin():
     # this is the home page of the control pannel
 
     # get information about the user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the rank of the user
     rank = users.get_rank_id(user[6])
@@ -1053,7 +1056,10 @@ def admin_users():
     # profile information can be updated through here
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1083,7 +1089,10 @@ def admin_users_view(view):
     # 4: Rank
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1118,7 +1127,10 @@ def admin_users_view_state(view, state):
     # 4: Rank
 
     # get basic info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1154,7 +1166,10 @@ def admin_users_user(uuid):
     # edits
 
     # get info on the logged in user
-    account_user = users.get_info(session['user'])
+    try:
+        account_user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(account_user[6])
@@ -1179,7 +1194,10 @@ def admin_users_toggle_popular(uuid):
     uuid = int(uuid)
 
     # get information about the user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1212,7 +1230,10 @@ def admin_users_user_update(uuid):
     # this page allows a user's account to be updated
 
     # get information about the user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1333,7 +1354,10 @@ def admin_users_ban(uuid, time):
     # this page bans a user forom the server
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get teh user's rank
     rank = users.get_rank_id(user[6])
@@ -1359,7 +1383,10 @@ def admin_users_pardon(uuid):
     # this page allows a user to be unbanned (pardoned)
 
     # get basic informatio about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1385,7 +1412,10 @@ def admin_words_flagged():
     # this page displays all of the words that will flag the messgae in a table
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1424,7 +1454,10 @@ def admin_words_flagged_add():
     # this page allows the user to add a flagged word to the list
 
     # get info on tthe logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1482,7 +1515,10 @@ def admin_words_flagged_delete(word_id):
     # this page handles the deletion of a flagged word
 
     # get information about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1550,7 +1586,10 @@ def admin_words_banned():
     # this page allows the user to view the words that are not allowed to be posted AT ALL
 
     # get info on the loffed in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get hte user's rnak
     rank = users.get_rank_id(user[6])
@@ -1589,7 +1628,10 @@ def admin_words_banned_add():
     # this page allows the user to add banned words
 
     # get information about hte logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the users rank
     rank = users.get_rank_id(user[6])
@@ -1646,7 +1688,10 @@ def admin_words_banned_delete(word_id):
     # this page deletes a banned word from the system
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1716,7 +1761,10 @@ def admin_words_messages():
     # here the user can ignore, or delete the post
 
     # get info on hte logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1739,7 +1787,10 @@ def admin_words_messages_ignore(message_id):
     # this page allows users to ignore a flagged message
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1765,7 +1816,10 @@ def admin_words_messages_delete(message_id):
     # this page allows a user to delete a message
 
     # get information about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get teh user's rank
     rank = users.get_rank_id(user[6])
@@ -1792,7 +1846,10 @@ def admin_team():
     # this page allows the user to view the team members, as well asd dev tesers
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1866,7 +1923,10 @@ def admin_team_bio(uuid):
     # this page displays the biography of a person on the development team
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the rank of the user
     rank = users.get_rank_id(user[6])
@@ -1915,7 +1975,10 @@ def admin_team_member(uuid):
     # be accessed by a the user who is the team member
 
     # get info about hte user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the rank of hte user
     rank = users.get_rank_id(user[6])
@@ -1928,7 +1991,10 @@ def admin_team_member(uuid):
         return redirect(request.referrer)
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # check if the UUID of the user matches the UUID of the requested user
     if str(user[6]) != str(uuid):
@@ -1978,7 +2044,10 @@ def admin_team_member_update(uuid):
     # this page updates the team member page
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -1991,7 +2060,10 @@ def admin_team_member_update(uuid):
         return redirect(request.referrer)
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # check if the UUID of the logged in user, and requested user match
     if str(user[6]) != str(uuid):
@@ -2096,7 +2168,10 @@ def admin_team_dev_add():
     # this page allows the addition of a dev tester
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2157,7 +2232,10 @@ def admin_team_dev_delete_id(dev_id):
     # this page allows the user to delete a user
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2226,7 +2304,10 @@ def admin_help_questions():
     # this page allows the user to view the questions asked by users
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the rank of the user
     rank = users.get_rank_id(user[6])
@@ -2259,7 +2340,10 @@ def admin_help_question_delete(message_id):
     # this page allows the user to delete a question from the server
 
     # get info about the user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2328,7 +2412,10 @@ def admin_help_faq():
     # this page allows the user to edit the FAQ
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2369,7 +2456,10 @@ def admin_help_faq_update():
     # this page handles an update to the FAQ a user might make
 
     # get info on logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2412,7 +2502,10 @@ def admin_help_contact():
     # this page alolows the the user to update thje contact page
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2453,7 +2546,10 @@ def admin_help_contact_update():
     # this page allows the user to update the contact info
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2496,7 +2592,10 @@ def admin_owner_cool_page():
     # this is the cool page that only owners have access to
 
     # get info about the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2517,7 +2616,10 @@ def admin_owner_settings():
     # this page allows the user to make updates to the website settings
 
     # get info on the user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2547,7 +2649,10 @@ def admin_owner_settings_update():
     # this page allows the user to summit changes to the settings
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2611,7 +2716,10 @@ def admin_log():
     # this page allows the user to view the control pannel log
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2632,7 +2740,10 @@ def admin_log_clear():
     # this page allows the user to clear the log
 
     # get info on logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2668,7 +2779,10 @@ def admin_popular_list():
     # this page allows the user to view the popular users
 
     # get info on the logged in user
-    user = users.get_info(session['user'])
+    try:
+        user = users.get_info(session['user'])
+    except KeyError:
+        return redirect('/login')
 
     # get the user's rank
     rank = users.get_rank_id(user[6])
@@ -2738,7 +2852,10 @@ def page_not_found(e):
     flash(["It Is Nick's Fault!", 1])
 
     # serve the HTML file.
-    return render_template('404.html', name=user[0], uuid=user[6], ext=users.get_icon_ext(user[6]), unseen=message.get_unseen_messages(user[6]), notify=notification.get_notifications_number(user[6]), error=e)
+    try:
+        return render_template('404.html', name=user[0], uuid=user[6], ext=users.get_icon_ext(user[6]), unseen=message.get_unseen_messages(user[6]), notify=notification.get_notifications_number(user[6]), error=e)
+    except TypeError:
+        return render_template('404.html')
 
 # App pages
 

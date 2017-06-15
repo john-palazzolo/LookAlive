@@ -46,14 +46,17 @@ def add_notification(uuid, text, send_uuid):
     __rewrite_file(uuid, notification_file)
 
 def __open_file(uuid):
-    temp = open('lookalive/notifications/{}.txt'.format(uuid), 'r')
-    file_data = temp.readlines()
-    temp.close()
+    try:
+        temp = open('lookalive/notifications/{}.txt'.format(uuid), 'r')
+        file_data = temp.readlines()
+        temp.close()
 
-    for line in range(len(file_data)):
-        file_data[line] = [file_data[line].rstrip('\n'), line]
+        for line in range(len(file_data)):
+            file_data[line] = [file_data[line].rstrip('\n'), line]
 
-    return file_data
+        return file_data
+    except IOError:
+        pass
 
 
 def __rewrite_file(uuid, new_data):
