@@ -1,13 +1,15 @@
 import things
 
-# declare module contsatnts
-FILENAME = "lookalive/output.txt"
+# this script allows output to be sent to the "output.txt" file
+
+# declare module constants
+FILENAME = "lookalive/output.txt"   # this is the name and path of the output file
 
 
 def output(text):
     # this function adds the 'text' parameter to the output file
 
-    # get the contenst of the file with the things module
+    # get the contents of the file with the things module
     total_file = things.read_file(FILENAME)
 
     # add the text to the file
